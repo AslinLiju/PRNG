@@ -1,0 +1,20 @@
+import time
+
+def middle_square(seed, size):
+    rand_nums = []
+    num_digits = len(str(seed))  
+    for _ in range(size):
+        seed = int(str(seed ** 2).zfill(2 * num_digits)[num_digits//2:num_digits//2 + num_digits])
+        rand_nums.append(seed)
+    return rand_nums
+
+if __name__ == "__main__":
+    start_time = time.time()
+    
+    seed = 1234
+    size = 1000
+    
+    middle_square_output = middle_square(seed, size)
+    execution_time = time.time() - start_time
+    print(f"Middle Square Output: {middle_square_output[:20]}")
+    print(f"Middle Square Execution Time: {execution_time:.5f} seconds")
