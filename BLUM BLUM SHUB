@@ -1,0 +1,33 @@
+import time
+import math
+
+def gcd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+def blum_blum_shub(seed, p, q, num_bits):
+    n = p * q
+    if gcd(seed, n) != 1:
+        raise ValueError("Seed must be coprime with n.")
+    
+    result = []
+    x = seed
+    for _ in range(num_bits):
+        x = (x ** 2) % n
+        result.append(x % 2)
+    
+    return result
+
+if __name__ == "__main__":
+    start_time = time.time()
+    
+    p = 11
+    q = 19
+    seed = 3
+    num_bits = 1000
+    
+    bbs_output = blum_blum_shub(seed, p, q, num_bits)
+    execution_time = time.time() - start_time
+    print(f"BBS Output: {bbs_output[:20]}")  
+    print(f"BBS Execution Time: {execution_time:.5f} seconds")
