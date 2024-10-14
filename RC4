@@ -1,0 +1,30 @@
+import time
+
+def rc4(key, size):
+    S = list(range(256))
+    j = 0
+    key_length = len(key)
+    for i in range(256):
+        j = (j + S[i] + key[i % key_length]) % 256
+        S[i], S[j] = S[j], S[i]
+
+    i = j = 0
+    random_stream = []
+    for _ in range(size):
+        i = (i + 1) % 256
+        j = (j + S[i]) % 256
+        S[i], S[j] = S[j], S[i]
+        random_stream.append(S[(S[i] + S[j]) % 256])
+    
+    return random_stream
+
+if __name__ == "__main__":
+    start_time = time.time()
+    
+    key = [1, 2, 3, 4, 5]
+    size = 1000
+    
+    rc4_output = rc4(key, size)
+    execution_time = time.time() - start_time
+    print(f"RC4 Output: {rc4_output[:20]}") 
+    print(f"RC4 Execution Time: {execution_time:.5f} seconds")
